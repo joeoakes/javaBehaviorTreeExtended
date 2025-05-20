@@ -153,7 +153,7 @@ class GamePanel extends JPanel {
         player = new Player(200, 200);
         enemy = new Enemy(50, 50);
 
-        // Build Behavior Tree
+        // Build Behavior Tree AI Logic Construction (Behavior Tree Definition)
         SelectorNode root = new SelectorNode();
         SequenceNode chaseSeq = new SequenceNode();
         chaseSeq.addChild(new IsPlayerInRange(enemy, player, 80));
@@ -161,9 +161,9 @@ class GamePanel extends JPanel {
         SequenceNode fleeSequence = new SequenceNode();
         fleeSequence.addChild(new IsHealthLow(enemy, 30));
         fleeSequence.addChild(new FleeFromPlayer(enemy, player));
-        root.addChild(fleeSequence);
-        root.addChild(chaseSeq);
-        root.addChild(new WanderRandomly(enemy));
+        root.addChild(fleeSequence); // 1st Priority: Flee if health is low
+        root.addChild(chaseSeq); // 2nd Priority: Chase if player is close
+        root.addChild(new WanderRandomly(enemy)); // 3rd Priority: Wander otherwise
         this.behaviorTree = root;
 
         // Mouse click to move player
