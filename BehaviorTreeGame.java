@@ -1,3 +1,14 @@
+/*
+Selector
+├── Sequence (Low Health)
+│   ├── IsHealthLow?
+│   └── FleeFromPlayer
+├── Sequence (Chase)
+│   ├── IsPlayerInRange?
+│   └── ChasePlayer
+└── WanderRandomly
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -180,7 +191,8 @@ class GamePanel extends JPanel {
             }
         });
 
-        // Game loop timer
+        // Game loop timer Each tick() call runs the behavior tree’s logic and returns a status:
+        //SUCCESS, FAILURE, RUNNING
         Timer timer = new Timer(50, e -> {
             behaviorTree.tick();
             repaint();
