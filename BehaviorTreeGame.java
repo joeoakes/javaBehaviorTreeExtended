@@ -191,8 +191,13 @@ class GamePanel extends JPanel {
             }
         });
 
-        // Game loop timer Each tick() call runs the behavior tree’s logic and returns a status:
-        //SUCCESS, FAILURE, RUNNING
+        /* Game loop timer Each tick() call runs the behavior tree’s logic and returns a status:
+        SUCCESS, FAILURE, RUNNING
+        Tick Order:
+        1. FleeFromPlayer if IsHealthLow succeeds.
+        2. If not, ChasePlayer if IsPlayerInRange succeeds.
+        3. Otherwise, WanderRandomly.
+         */
         Timer timer = new Timer(50, e -> {
             behaviorTree.tick();
             repaint();
